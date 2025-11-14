@@ -6,16 +6,16 @@ services:
     image: postgres:15-alpine
     container_name: cuenta-postgres
     environment:
-      POSTGRES_DB: cuenta_db
-      POSTGRES_USER: cuenta_user
-      POSTGRES_PASSWORD: cuenta_password
+      POSTGRES_DB: mibasedatos
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "1234"
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./basedatos.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U cuenta_user -d cuenta_db"]
+      test: ["CMD-SHELL", "pg_isready -U cuenta_user -d mibasedatos"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -29,9 +29,9 @@ services:
       dockerfile: Dockerfile
     container_name: cuenta-application
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/cuenta_db
-      SPRING_DATASOURCE_USERNAME: cuenta_user
-      SPRING_DATASOURCE_PASSWORD: cuenta_password
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/mibasedatos
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: "1234"
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_SHOW_SQL: "true"
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
@@ -50,4 +50,6 @@ volumes:
 networks:
   cuenta-network:
     driver: bridge
+    name: cuenta-network
+    external:false
 

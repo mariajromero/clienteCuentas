@@ -16,7 +16,7 @@ COPY src ./src
 RUN gradle clean build -x test --no-daemon
 
 # Etapa 2: Ejecución
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jre
 
 WORKDIR /app
 
@@ -24,7 +24,7 @@ WORKDIR /app
 COPY --from=build /app/build/libs/*.jar app.jar
 
 # Exponer el puerto de la aplicación
-EXPOSE 8080
+EXPOSE 8081
 
 # Ejecutar la aplicación
 ENTRYPOINT ["java", "-jar", "app.jar"]
