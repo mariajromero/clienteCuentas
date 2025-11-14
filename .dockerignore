@@ -1,0 +1,17 @@
+# Archivos y directorios a ignorar en el build de Docker
+.gradle
+build
+bin
+.idea
+*.iml
+.vscode
+*.log
+*.swp
+*.swo
+*~
+.DS_Store
+.git
+.gitignore
+README.md
+HELP.md
+
