@@ -51,5 +51,5 @@ networks:
   cuenta-network:
     driver: bridge
     name: cuenta-network
-    external:false
+    external: false
 
